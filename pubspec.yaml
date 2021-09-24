@@ -1,0 +1,80 @@
+name: world_of_paladins
+description: A new Flutter project.
+
+publish_to: 'none' # Remove this line if you wish to publish to pub.dev
+
+version: 1.0.0+1
+
+environment:
+  sdk: ">=2.12.0 <3.0.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+
+  # The following adds the Cupertino Icons font to your application.
+  # Use with the CupertinoIcons class for iOS style icons.
+  cupertino_icons: ^1.0.2
+  flutter_localizations:
+    sdk: flutter
+  get: ^4.3.8 
+  crypto: ^3.0.1
+  intl: ^0.17.0
+  shimmer: ^2.0.0
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+
+# For information on the generic Dart part of this file, see the
+# following page: https://dart.dev/tools/pub/pubspec
+
+# The following section is specific to Flutter.
+flutter:
+
+  # The following line ensures that the Material Icons font is
+  # included with your application, so that you can use the icons in
+  # the material Icons class.
+  uses-material-design: true
+
+  # To add assets to your application, add an assets section, like this:
+  assets:
+    - assets/images/PaladinsBackGround.png
+    - assets/icons/Damage.png
+    - assets/icons/Flank.png
+    - assets/icons/Front_Line.png
+    - assets/icons/Support.png
+
+  fonts:
+    - family: Rockwell
+      fonts:
+        - asset: assets/fonts/rockwell-bold.ttf
+          weight: 700
+    - family: Roboto Condensed
+      fonts:
+        - asset: assets/fonts/roboto-condensed.bold.ttf
+          weight: 700
+        - asset: assets/fonts/RobotoCondensed-Regular.ttf
+          weight: 400
+        - asset: assets/fonts/RobotoCondensed-Light.ttf
+          weight: 300
+    - family: Montserrat
+      fonts:
+        - asset: assets/fonts/montserrat-bold.ttf
+          weight: 700
+        - asset: assets/fonts/montserrat-medium.ttf
+          weight: 500
+        - asset: assets/fonts/montserrat-regular.ttf
+          weight: 400     
+    - family: Myriad Pro
+      fonts:
+        - asset: assets/fonts/MYRIADPRO-BOLD.OTF
+          weight: 700   
+        - asset: assets/fonts/MYRIADPRO-SEMIBOLD.OTF
+          weight: 500 
+        - asset: assets/fonts/MYRIADPRO-REGULAR.OTF
+          weight: 400 
+        - asset: assets/fonts/MyriadPro-Light.otf
+          weight: 300
+
