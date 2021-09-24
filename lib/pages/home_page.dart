@@ -13,7 +13,7 @@ class HomePage extends GetView {
         title: Text(
           'World Of Paladins',
           style: TextStyle(
-            color: Colors.white54,
+            color: Colors.amber,
             fontFamily: 'Montserrat',
             fontWeight: FontWeight.bold,
             fontSize: 22,
@@ -263,10 +263,10 @@ class HomePage extends GetView {
                                 child: Text(
                                   controller.campeoesExibicao[index]["Name"],
                                   style: TextStyle(
-                                    fontWeight: FontWeight.bold,
-                                    fontSize: 18,
+                                    color: Colors.amber,
                                     fontFamily: 'Montserrat',
-                                    color: Colors.black,
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 20,
                                   ),
                                 ),
                               ),
