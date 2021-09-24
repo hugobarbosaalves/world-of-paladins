@@ -1,4 +1,4 @@
-# world_of_paladins
+# World Of Paladins
 
 A new Flutter project.
 
