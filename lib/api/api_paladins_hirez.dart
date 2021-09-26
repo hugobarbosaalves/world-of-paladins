@@ -7,4 +7,5 @@ class ApiPaladinsHirez extends GetConnect {
 
   Future<Response> createSession(String url) => get(url);
   Future<Response> getChampions(String url) => get(url);
+  Future<Response> getCardChampion(String url) => get(url);
 }

@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
@@ -72,6 +73,7 @@ class HomePage extends GetView {
                                 'Todos',
                                 style: TextStyle(
                                   fontFamily: 'Montserrat',
+                                  fontWeight: FontWeight.bold,
                                 ),
                               ),
                             ),
@@ -102,6 +104,7 @@ class HomePage extends GetView {
                                 'Supporte',
                                 style: TextStyle(
                                   fontFamily: 'Montserrat',
+                                  fontWeight: FontWeight.bold,
                                 ),
                               ),
                             ),
@@ -130,6 +133,7 @@ class HomePage extends GetView {
                                 'Tanker',
                                 style: TextStyle(
                                   fontFamily: 'Montserrat',
+                                  fontWeight: FontWeight.bold,
                                 ),
                               ),
                             ),
@@ -160,6 +164,7 @@ class HomePage extends GetView {
                                 'Flanco',
                                 style: TextStyle(
                                   fontFamily: 'Montserrat',
+                                  fontWeight: FontWeight.bold,
                                 ),
                               ),
                             ),
@@ -188,6 +193,7 @@ class HomePage extends GetView {
                                 'Damage',
                                 style: TextStyle(
                                   fontFamily: 'Montserrat',
+                                  fontWeight: FontWeight.bold,
                                 ),
                               ),
                             ),
@@ -213,65 +219,71 @@ class HomePage extends GetView {
                     children: List.generate(
                       controller.campeoesExibicao.length,
                       (index) {
-                        return Visibility(
-                          visible:
-                              true, //controller.campeoes[index]["Roles"].contains("Flanco") ? true : false,
-                          child: Column(
-                            children: [
-                              Container(
-                                height: 150,
-                                decoration: BoxDecoration(
-                                  color: Colors.transparent,
+                        return Column(
+                          children: [
+                            Container(
+                              height: 150,
+                              width: 150,
+                              decoration: BoxDecoration(
+                                color: Colors.transparent,
+                                borderRadius: BorderRadius.circular(90),
+                                border: Border.all(color: Colors.teal, width: 2.0),
+                              ),
+                              child: InkWell(
+                                onTap: () => Get.toNamed(
+                                  '/championDetails',
+                                  arguments: controller.campeoesExibicao[index],
+                                ),
+                                child: ClipRRect(
                                   borderRadius: BorderRadius.circular(90),
-                                  border: Border.all(color: Colors.teal, width: 2.0),
-                                ),
-                                child: InkWell(
-                                  onTap: () => Get.toNamed(
-                                    '/championDetails',
-                                    arguments: controller.campeoesExibicao[index],
-                                  ),
-                                  child: ClipRRect(
-                                    borderRadius: BorderRadius.circular(90),
-                                    child: Image.network(
-                                      controller.campeoesExibicao[index]["ChampionIcon_URL"],
-                                      fit: BoxFit.cover,
-                                      color: Color.fromRGBO(255, 255, 255, 0.7),
-                                      colorBlendMode: BlendMode.modulate,
-                                      loadingBuilder: (BuildContext context, Widget child,
-                                          ImageChunkEvent? loadingProgress) {
-                                        if (loadingProgress == null) {
-                                          return child;
-                                        }
-                                        return Center(
-                                          child: CircularProgressIndicator(
-                                            color: Colors.teal,
-                                            value: loadingProgress.expectedTotalBytes != null
-                                                ? loadingProgress.cumulativeBytesLoaded /
-                                                    loadingProgress.expectedTotalBytes!
-                                                : null,
-                                          ),
-                                        );
-                                      },
+                                  child: CachedNetworkImage(
+                                    fadeOutDuration: Duration(milliseconds: 500),
+                                    imageUrl: controller.campeoesExibicao[index]["ChampionIcon_URL"],
+                                    imageBuilder: (context, imageProvider) => Container(
+                                      decoration: BoxDecoration(
+                                        image: DecorationImage(
+                                          image: imageProvider,
+                                          fit: BoxFit.cover,
+                                          //colorFilter: ColorFilter.mode(Colors.red, BlendMode.colorBurn),
+                                        ),
+                                      ),
                                     ),
+                                    placeholder: (context, url) => Center(
+                                      child: CircularProgressIndicator(
+                                        color: Colors.teal.shade300,
+                                      ),
+                                    ),
+                                    errorWidget: (context, url, error) => Icon(Icons.error),
                                   ),
+                                  // CachedNetworkImage(
+                                  //   imageUrl: controller.campeoesExibicao[index]["ChampionIcon_URL"],
+                                  //   fadeOutDuration: Duration(milliseconds: 2000),
+                                  //   placeholder: (context, url) => Image.asset(
+                                  //     'assets/images/PaladinsBackGround.png',
+                                  //     width: 150,
+                                  //     fit: BoxFit.cover,
+                                  //   ),
+                                  //   errorWidget: (context, url, error) => Icon(Icons.error),
+                                  //   fit: BoxFit.contain,
+                                  // ),
                                 ),
                               ),
-                              SizedBox(
-                                height: 5,
-                              ),
-                              Expanded(
-                                child: Text(
-                                  controller.campeoesExibicao[index]["Name"],
-                                  style: TextStyle(
-                                    color: Colors.amber,
-                                    fontFamily: 'Montserrat',
-                                    fontWeight: FontWeight.bold,
-                                    fontSize: 20,
-                                  ),
+                            ),
+                            SizedBox(
+                              height: 5,
+                            ),
+                            Expanded(
+                              child: Text(
+                                controller.campeoesExibicao[index]["Name"],
+                                style: TextStyle(
+                                  color: Colors.amber,
+                                  fontFamily: 'Montserrat',
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 20,
                                 ),
                               ),
-                            ],
-                          ),
+                            ),
+                          ],
                         );
                       },
                     ),

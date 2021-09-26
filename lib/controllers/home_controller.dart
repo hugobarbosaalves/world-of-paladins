@@ -25,38 +25,15 @@ class HomeController extends GetxController {
 
   @override
   void onInit() {
-    createSession();
+    incialLoad();
     super.onInit();
   }
 
-  Future<void> createSession() async {
-    // Get Signature that is specific to "createsession"
-    var signature =
-        '${gb.devKey}createsession${gb.authKey}${DateFormat('yyyyMMddHHmmss').format(DateTime.now().toUtc())}';
-    signature = utils.getMD5(signature);
-
-    var url =
-        "${gb.urlPrefix}createsessionJson/${gb.devKey}/$signature/${DateFormat('yyyyMMddHHmmss').format(DateTime.now().toUtc())}";
-
-    var response = await api.createSession(url);
-
-    if (response.statusCode == 200) {
-      if (response.body["ret_msg"] == "Approved") {
-        gb.sessionId.value = response.body["session_id"];
-        getChampions();
-      } else {
-        //deu falha na criação da session_id
-        print(response.body["ret_msg"]);
-      }
-      print("deu bom");
-    } else {
-      //deu falha na request
-      print('Falha ao realizar a request CodStatus:${response.statusCode}');
-      print('Falha ao realizar a request MSG:${response.body["ret_msg"]}');
-    }
+  Future<void> incialLoad() async {
+    if (gb.sessionId.value == "") await gb.createSession();
+    await getChampions();
   }
 
-  //return $list_champions;
   Future<void> getChampions() async {
     // Call the "getchampions" API method & wait for synchronous response
     var signature =
