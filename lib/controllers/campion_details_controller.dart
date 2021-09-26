@@ -36,27 +36,14 @@ class ChampionController extends GetxController {
   }
 
   Future<void> getCardsChampion() async {
-    //await gb.createSession();
-    var signature =
-        '${gb.devKey}getchampioncards${gb.authKey}${DateFormat('yyyyMMddHHmmss').format(DateTime.now().toUtc())}';
-    signature = utils.getMD5(signature);
-
-    var languageCode = '10';
-    DateTime concat = DateTime.now().toUtc();
-    var url =
-        '${gb.urlPrefix}getchampioncardsjson/${gb.devKey}/$signature/${gb.sessionId.value}/${DateFormat('yyyyMMddHHmmss').format(concat)}/$champId/$languageCode';
-
-    var response = await api.getCardChampion(url);
-    if (response.statusCode == 200) {
-      for (var item in response.body) {
+    var response = await api.getCardChampion(champId: champId, sessionId: gb.sessionId.value);
+    if (response != null) {
+      for (var item in response) {
         if (item['championTalent_URL'] != null)
           talentos.add(item);
         else
           cartas.add(item);
       }
-    } else {
-      print('Falha ao realizar a request CodStatus:${response.statusCode}');
-      print('Falha ao realizar a request MSG:${response.body["ret_msg"]}');
     }
     update();
   }

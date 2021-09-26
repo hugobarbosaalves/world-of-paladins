@@ -8,7 +8,7 @@ class Utils extends GetxService {
     return this;
   }
 
-  String getMD5(String text) {
+  static String getMD5(String text) {
     return md5.convert(utf8.encode(text)).toString();
   }
 }

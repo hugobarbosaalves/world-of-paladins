@@ -35,25 +35,12 @@ class HomeController extends GetxController {
   }
 
   Future<void> getChampions() async {
-    // Call the "getchampions" API method & wait for synchronous response
-    var signature =
-        '${gb.devKey}getchampions${gb.authKey}${DateFormat('yyyyMMddHHmmss').format(DateTime.now().toUtc())}';
-    signature = utils.getMD5(signature);
-
-    var languageCode = '10';
-    DateTime concat = DateTime.now().toUtc();
-    var url =
-        '${gb.urlPrefix}getchampionsjson/${gb.devKey}/$signature/${gb.sessionId.value}/${DateFormat('yyyyMMddHHmmss').format(concat)}/$languageCode';
-
-    var response = await api.getChampions(url);
-    if (response.statusCode == 200) {
-      for (var item in response.body) {
+    var response = await api.getChampions(sessionId: gb.sessionId.value);
+    if (response != null) {
+      for (var item in response) {
         campeoes.add(item);
         campeoesExibicao.add(item);
       }
-    } else {
-      print('Falha ao realizar a request CodStatus:${response.statusCode}');
-      print('Falha ao realizar a request MSG:${response.body["ret_msg"]}');
     }
     update();
   }
